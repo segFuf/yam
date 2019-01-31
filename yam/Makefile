@@ -14,4 +14,4 @@ yam2	:	$(OBJ) $(HEAD)
 
 
 clean	:
-		rm -rf *.o *.out
+		rm -rf *.o *.out yam2
