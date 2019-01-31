@@ -15,6 +15,8 @@
 #define EVER (;;)
 #define abs( a ) ( a > 0 ? a : -a )
 
-int *choice(void);
+void choice(int des[6]);
+int numplayers( char *str );
+void removePoints( int player, int points );
 
 #endif // YAM_H_

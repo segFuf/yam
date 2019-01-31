@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
-
+#include "yam.h"
 
 //A FAIRE :
 // - clear l'ecran a des moments precis
@@ -12,18 +8,6 @@
 // - mettre les define dans un .h et les fonctions abs et numplayers dans un autre .c
 // - faire un makefile
 
-
-
-#define BET_LOW 12
-#define BET_HIGH 30
-#define MAX_DICES 6
-#define MIN_PLAYERS 2
-#define MAX_PLAYERS 20
-#define POINTS_START 30
-
-#define EVER (;;)
-
-#define abs( a ) ( a > 0 ? a : -a )
 
 int PLAYERS[MAX_PLAYERS];
 int NUM_PLAYERS;
@@ -51,23 +35,25 @@ void removePoints( int player, int points ) {
 	}
 }
 
-
 void play( int player ) {
+	int des[MAX_DICES];
 	int bet = 0;
-	for EVER {
-		if ( bet == BET_LOW ) break;
-		if ( bet == BET_HIGH ) break;
-		printf("Choisissez votre pari : inferieur a 12 ou superieur a 30\n");
-		scanf("%i", &bet);
-	}
-
-	printf("Vous avez choisi de faire un pari a %i\n", bet);
-
 	int num_dices = MAX_DICES;
 	int dice[MAX_DICES];
 	int score = 0;
 	int old_score = 0;
 	int old_num_dices = 0;
+
+
+	for EVER {
+		if ( bet == BET_LOW ) break;
+		if ( bet == BET_HIGH ) break;
+		printf("Choisissez votre pari : 12 ou 30\n");
+		scanf("%i", &bet);
+	}
+
+	printf("Vous avez choisi de faire un pari a %i\n", bet);
+
 
 	while( num_dices ) {
 		if( score != old_score || !old_num_dices ) {
@@ -77,29 +63,32 @@ void play( int player ) {
 					if ( i == num_dices )
 						break;
 					dice[i] = rand() % 6 + 1;
-					printf("%i: %i		", i+1, dice[i]);
+					printf("des %i: %i		", i+1, dice[i]);
 				}
 				printf("\n");
 			}
 		}
 
-		printf("Quels des choisissez-vous ?\n");
-		char choice[7];
-		scanf("%s", &choice);
+
+		choice(des);
 
 		old_score = score;
 		old_num_dices = num_dices;
 
-		for( int i = 0; i < 7; i++ ) {
-			if( choice > num_dices ) {
+		int i;
+		for( i = 0; des[i] != 0; i++ ) {
+			if( des[i] > num_dices ) {
 				printf("Un des des selectionnes n'existe pas!\n");
 				score = old_score;
 				num_dices = old_num_dices;
 				break;
 			}
-			score += dice[choice[i] - '0' - 1];
-			num_dices--;
+			score += dice[des[i] - 1];
+			printf("score : %d\n",score);
 		}
+
+		if( score != old_score )
+			num_dices -= i;
 
 		printf("Votre score actuel : %i\n", score);
 		printf("%i des restant\n\n", num_dices);
