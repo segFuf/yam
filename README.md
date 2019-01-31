@@ -1,13 +1,17 @@
 # Yam repository
 
 A simple Yam game made for university in C programming language.
+
 `yam` folder contains a version of the classical Yam game
+
 `yam2` folder contains a modified version of the Yam game
 
 ## Yam2 rules
 
 Starting points : 30
+
 Minimum number of players : 2
+
 Maximum number of players : 20
 
 A game ends when only one player is left alive (with more than 0 points)
@@ -28,8 +32,10 @@ Each player plays his round this way :
 
 **Yam :**
 `git clone https://github.com/segFuf/yam/ && cd yam/yam && make`
+
 **Yam2 :**
 `git clone https://github.com/segFuf/yam/ && cd yam/yam2 && make`
+
 
 Then, run the output executable `yam` or `yam2`
 
