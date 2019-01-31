@@ -36,7 +36,6 @@ void removePoints( int player, int points ) {
 }
 
 void play( int player ) {
-	int des[MAX_DICES];
 	int bet = 0;
 	int num_dices = MAX_DICES;
 	int dice[MAX_DICES];
@@ -69,7 +68,7 @@ void play( int player ) {
 			}
 		}
 
-
+		int des[MAX_DICES] = { };
 		choice(des);
 
 		old_score = score;
