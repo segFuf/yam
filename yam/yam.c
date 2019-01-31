@@ -10,12 +10,11 @@
 
 
 
-void play() {
+int play() {
 	int num_dices = MAX_DICES;
 	int dice[MAX_DICES];
 	int score = 0;
 	int old_num_dices = 0;
-
 	int des[MAX_DICES] = { };
 
 	for( int i = 0; i < MAX_TRIES || num_dices; i++ ) {
