@@ -17,5 +17,6 @@
 void choice(int des[6]);
 int numplayers( char *str );
 void removePoints( int player, int points );
+int get_score(int des[7]);
 
 #endif // YAM_H_
