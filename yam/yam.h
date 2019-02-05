@@ -11,6 +11,11 @@
 #define FACES 8
 #define PLAYERS 2
 
+//shapes
+#define SAME 50
+#define SUITE 40
+#define FULL 35
+
 #define EVER (;;)
 #define abs( a ) ( a > 0 ? a : -a )
 

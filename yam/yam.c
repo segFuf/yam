@@ -12,10 +12,9 @@
 
 int play() {
 	int num_dices = MAX_DICES;
-	int dice[MAX_DICES];
-	int score = 0;
 	int old_num_dices = 0;
-	int des[MAX_DICES] = { };
+	int dice[MAX_DICES];
+	int des[MAX_DICES];
 
 	for( int i = 0; i < MAX_TRIES || num_dices; i++ ) {
 		if( !old_num_dices ) {
@@ -25,26 +24,39 @@ int play() {
 					if ( j == num_dices )
 						break;
 					dice[j] = rand() % 6 + 1;
-					printf("des %i: %i		", j+1, dice[j]);
+					printf("des %i: %i		", j + 1, dice[j]);
 				}
 				printf("\n");
 			}
 		}
 
-		choice(des); //modifier choice
+		for EVER {
+			int tmp[MAX_DICES] = { };
+			choice( tmp );
 
-		for( int j = MAX_DICES - num_dices; des[j] != 0; j++ ) {
-			if( des[j] > num_dices ) {
+			for( int j = 0; tmp[j] != 0 || j < num_dices; j++ ) {
+				if( tmp[j] > num_dices ) {
+					num_dices = old_num_dices;
+					break;
+				}
+				num_dices;
+			}
+
+			if( num_dices != old_num_dices ) {
 				printf("Un des des selectionnes n'existe pas!\n");
-				num_dices = old_num_dices;
 				break;
 			}
+			
+
+			for( int j = MAX_DICES - old_num_dices; j < MAX_DICES; j++ )
+				des[j] = tmp[j];
+
+			old_num_dices = num_dices;
 		}
 	}
 
-	//vérifier les formes et changer le score
-
-	return score;
+	sort( des );
+	return get_score( des );
 }
 
 
@@ -55,7 +67,7 @@ int main( int argc, char **argv ) {
 
 	int PLAYERS[2] = { };
 
-	printf("Démarrage d'une partie à %i joueurs (nombre max de joueurs : %i)\n", NUM_PLAYERS, MAX_PLAYERS);
+	printf("Démarrage d'une partie à %i joueurs\n", NUM_PLAYERS);
 
 	for( int i = 0; i < MAX_ROUNDS; i++ ) {
 		printf("\nNouveau tour !\n");
@@ -66,25 +78,16 @@ int main( int argc, char **argv ) {
 			PLAYERS[player] += play();
 			printf("Votre score a la fin de ce tour est %i\n", PLAYERS[player]);
 		}
-
-		int players_alive = -1;
-		for( int player = 0; player < NUM_PLAYERS; player++ ) {
-			if( PLAYERS[player] )
-				players_alive++;
-		}
-
-		if( players_alive ) //n'est vrai qu'a partir de players_alive == 1 (donc 2 joueurs en vie)
-			continue;
-		break;
 	}
 
 	printf("\nFin de la partie !\n");
+	int winner = 0;
 	for( int player = 0; player < NUM_PLAYERS; player++ ) {
-		if( PLAYERS[player] ) {
-			printf("\nLe joueur %i l'emporte avec %i points!\n", player+1, PLAYERS[player]);
-			return 0;
-		}
+		printf("Joueur %i	:	%i\n", player+1, PLAYERS[player]);
+		if( PLAYERS[player] > PLAYERS[winner])
+			winner = player;
 	}
 
-	return 1;
+	printf("Le joueur %i l'emporte avec %i points!\n", winner+1, PLAYERS[winner]);
+	return 0;
 }
