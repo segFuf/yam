@@ -60,8 +60,6 @@ int get_score(int des[MAX_DICES])
 	int score = 0;
 
 	sort_des(des);
-	for (int i = 0; i < MAX_DICES; i++)
-		printf("des[%d] : %d\n",i,des[i]);
 	if ((score = same_number(des)))
 		return (score);
 	if ((score = suite(des)))
