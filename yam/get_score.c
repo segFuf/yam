@@ -26,7 +26,7 @@ int full(int des[MAX_DICES])
     int occurences = 0;
     for( int i = 1; i < MAX_DICES; i++ )
         if( des[i] != des[i-1] ) {
-            if( i >= 1 && i <= MAX_DICES-2 && !occurences) {
+            if( i >= 1 && i <= MAX_DICES-2 && !occurences ) {
                 occurences++;
                 continue;
             }

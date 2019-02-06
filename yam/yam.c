@@ -15,14 +15,14 @@ int play() {
 	int dice[MAX_DICES];		//tableau de des generes aleatoirement
 	int des[MAX_DICES];			//tableau de des final, pour la creation d'une forme
 
-	for( int i = 0; i < MAX_TRIES || num_dices; i++ ) {
+	for( int i = 0; i < MAX_TRIES; i++ ) {
 		printf("Tour %i :\n", i + 1);
-		for( int j = 0; j < num_dices; ) { //truc complexe pour juste afficher sur deux lignes les des
-			for( int k = 0; k < 2; k++, j++ ) {
-				if ( j == num_dices )
-					break;
-				dice[j] = rand() % 6 + 1;
-				printf("des %i: %i		", j + 1, dice[j]);
+		for( int j = 0; j < num_dices; j += 2 ) { //truc complexe pour juste afficher sur deux lignes les des
+			dice[j] = rand() % FACES + 1;
+			printf("des %i: %i		", j + 1, dice[j]);
+			if( j+1 < num_dices ) {
+				dice[j+1] = rand() % FACES + 1;
+				printf("des %i: %i		", j + 2, dice[j+1]);
 			}
 			printf("\n");
 		}
@@ -33,13 +33,15 @@ int play() {
 			int tmp[MAX_DICES] = { };
 			choice( tmp );
 
-			for( int j = 0; tmp[j] != 0 || j < num_dices; j++ ) {
+			int j;
+			for( j = 0; tmp[j] != 0 && j < num_dices; j++ ) {
 				if( tmp[j] > num_dices ) {
-					num_dices = old_num_dices;
+					j = 0;
 					break;
 				}
-				num_dices--;
 			}
+
+			num_dices -= j;
 
 			if( num_dices == old_num_dices ) {
 				printf("Un des des selectionnes n'existe pas!\n");
@@ -47,12 +49,14 @@ int play() {
 			}
 			
 
-			for( int j = MAX_DICES - old_num_dices; j < MAX_DICES; j++ )
-				des[j] = tmp[j];
+			for( j = MAX_DICES - old_num_dices; j < MAX_DICES - num_dices; j++ )
+				des[j] = dice[tmp[j]-1];
 
-			old_num_dices = num_dices;
 			break;
 		}
+
+		if( num_dices == 0 )
+			break;
 	}
 
 	return get_score( des );

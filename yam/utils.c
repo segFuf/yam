@@ -1,6 +1,6 @@
 #include "yam.h"
 
-void choicee(int des[MAX_DICES])
+void choice(int des[MAX_DICES])
 {
 	char choice[MAX_DICES] = { };
 	int y = 0;
