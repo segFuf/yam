@@ -5,16 +5,15 @@ void choice(int des[MAX_DICES])
 	char choice[MAX_DICES] = { };
 	int y = 0;
 
-	while ( !y ) {
-		printf("Quels des choisissez-vous ?\n");
-		scanf("%s", &choice);
-		for (int i = 0; i < MAX_DICES; i++) {
-			if (choice[i] >= '1' && choice[i] <= '7') {
-				des[y] = choice[i] - '0';
-				y++;
-			}
+	printf("\n\x1b[95mQuels des choisissez-vous ?\x1b[97m\n");
+	scanf("%s", &choice);
+	for (int i = 0; i < MAX_DICES; i++) {
+		if (choice[i] >= '1' && choice[i] <= '7') {
+			des[y] = choice[i] - '0';
+			y++;
 		}
 	}
+	printf("\n");
 }
 
 void swap(int *a, int *b)

@@ -16,13 +16,13 @@ int play() {
 	int des[MAX_DICES];			//tableau de des final, pour la creation d'une forme
 
 	for( int i = 0; i < MAX_TRIES; i++ ) {
-		printf("Tour %i :\n", i + 1);
+		printf("\x1b[32mEssai \x1b[92m%i \x1b[32msur \x1b[92m%i\x1b[32m\n\n", i + 1, MAX_TRIES);
 		for( int j = 0; j < num_dices; j += 2 ) { //truc complexe pour juste afficher sur deux lignes les des
 			dice[j] = rand() % FACES + 1;
-			printf("des %i: %i		", j + 1, dice[j]);
+			printf("des \x1b[92m%i \x1b[32m: \x1b[92m%i\x1b[32m", j + 1, dice[j]);
 			if( j+1 < num_dices ) {
 				dice[j+1] = rand() % FACES + 1;
-				printf("des %i: %i		", j + 2, dice[j+1]);
+				printf("\t\tdes \x1b[92m%i \x1b[32m: \x1b[92m%i\x1b[32m", j + 2, dice[j+1]);
 			}
 			printf("\n");
 		}
@@ -44,7 +44,7 @@ int play() {
 			num_dices -= j;
 
 			if( num_dices == old_num_dices ) {
-				printf("Un des des selectionnes n'existe pas!\n");
+				printf(" \x1b[91m--- Un des des selectionnes n'existe pas! ---\x1b[92m\n");
 				continue;
 			}
 			
@@ -70,14 +70,17 @@ int main() {
 
 	int PLAYERS[2] = { };
 
-	printf("Démarrage d'une partie à %i joueurs\n", NUM_PLAYERS);
+	printf("\n////////////////////////////////////////\n\
+// Démarrage d'une partie à \x1b[34m%i \x1b[97mjoueurs //\n\
+////////////////////////////////////////\n\n\n", NUM_PLAYERS);
 
 	for( int i = 0; i < MAX_ROUNDS; i++ ) {
-		printf("\nTour %i sur %i !\n", i + 1, MAX_ROUNDS);
+		printf("\x1b[93m  -------------------\n --- Tour \x1b[92m%i \x1b[93msur \x1b[32m%i \x1b[93m---\n  -------------------\n\x1b[97m\n\n", i + 1, MAX_ROUNDS);
 		for( int player = 0; player < NUM_PLAYERS; player++ ) {
-			printf("Le joueur %i joue\n", player + 1);
+			printf("\x1b[91mLe joueur \x1b[36m%i \x1b[91mjoue\x1b[97m\n\n", player + 1);
 			PLAYERS[player] += play();
-			printf("Votre score a la fin de ce tour est %i\n", PLAYERS[player]);
+			printf("\x1b[93mVotre score a la fin de ce tour est \x1b[91m%i\x1b[97m\n\n", PLAYERS[player]);
+			sleep(1);
 		}
 	}
 
