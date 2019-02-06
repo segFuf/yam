@@ -55,7 +55,6 @@ int play() {
 		}
 	}
 
-	sort( des );
 	return get_score( des );
 }
 
