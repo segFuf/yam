@@ -27,7 +27,6 @@ int suite(int des[MAX_DICES])
 
 int full(int des[MAX_DICES])
 {
-	int numbers = 1;
 	for( int i = 1; i < MAX_DICES; i++ )
 		if( des[i] != des[i-1] ) {
 			if( i == (MAX_DICES/2) || i == (MAX_DICES/2 + 1) )

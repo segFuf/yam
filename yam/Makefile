@@ -4,12 +4,12 @@ HEAD=yam.h
 OBJ=$(SRC:.c=.o)
 CFLAGS= -Wall -Wextra -g
 
-yam	:	$(OBJ) $(HEAD)
+yam	:	$(HEAD) $(OBJ)
 		$(CC) -o $@ $(OBJ)
 
 
 
-*.o	:	%.c
+*.o	:	$(SRC)
 	$(CC) -c $^ $(CFLAGS)
 
 

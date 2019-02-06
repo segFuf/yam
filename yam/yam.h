@@ -9,7 +9,7 @@
 #define MAX_TRIES 3
 #define MAX_DICES 7
 #define FACES 8
-#define PLAYERS 2
+#define NUM_PLAYERS 2
 
 //shapes
 #define SAME 50

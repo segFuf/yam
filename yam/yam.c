@@ -39,7 +39,7 @@ int play() {
 					num_dices = old_num_dices;
 					break;
 				}
-				num_dices;
+				num_dices--;
 			}
 
 			if( num_dices != old_num_dices ) {
@@ -61,7 +61,7 @@ int play() {
 
 
 
-int main( int argc, char **argv ) {
+int main() {
 	time_t t;
 	srand((unsigned) time(&t)); //initialisation du random
 
@@ -70,11 +70,9 @@ int main( int argc, char **argv ) {
 	printf("Démarrage d'une partie à %i joueurs\n", NUM_PLAYERS);
 
 	for( int i = 0; i < MAX_ROUNDS; i++ ) {
-		printf("\nNouveau tour !\n");
-		for( int player = 0; player < PLAYERS; player++ ) {
-			if( !PLAYERS[player] )
-				continue;
-			printf("Le joueur %i joue\n", player+1);
+		printf("\nTour %i sur %i !\n", i + 1, MAX_ROUNDS);
+		for( int player = 0; player < NUM_PLAYERS; player++ ) {
+			printf("Le joueur %i joue\n", player + 1);
 			PLAYERS[player] += play();
 			printf("Votre score a la fin de ce tour est %i\n", PLAYERS[player]);
 		}
@@ -83,7 +81,7 @@ int main( int argc, char **argv ) {
 	printf("\nFin de la partie !\n");
 	int winner = 0;
 	for( int player = 0; player < NUM_PLAYERS; player++ ) {
-		printf("Joueur %i	:	%i\n", player+1, PLAYERS[player]);
+		printf("Joueur %i	:	%i\n", player + 1, PLAYERS[player]);
 		if( PLAYERS[player] > PLAYERS[winner])
 			winner = player;
 	}
