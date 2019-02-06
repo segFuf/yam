@@ -1,10 +1,10 @@
 CC=gcc -std=c99
-SRC=utils.c yam.c
+SRC=utils.c get_score.c yam.c
 HEAD=yam.h
 OBJ=$(SRC:.c=.o)
 CFLAGS= -Wall -Wextra -g
 
-yam2	:	$(OBJ) $(HEAD)
+yam	:	$(OBJ) $(HEAD)
 		$(CC) -o $@ $(OBJ)
 
 
@@ -14,4 +14,4 @@ yam2	:	$(OBJ) $(HEAD)
 
 
 clean	:
-		rm -rf *.o *.out yam2
+		rm -rf *.o *.out yam
