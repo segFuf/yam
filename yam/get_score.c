@@ -23,14 +23,17 @@ int suite(int des[MAX_DICES])
 
 int full(int des[MAX_DICES])
 {
-	for( int i = 1; i < MAX_DICES; i++ )
-		if( des[i] != des[i-1] ) {
-			if( i == (MAX_DICES/2) || i == (MAX_DICES/2 + 1) )
-				continue;
-			return 0;
-		}
+    int occurences = 0;
+    for( int i = 1; i < MAX_DICES; i++ )
+        if( des[i] != des[i-1] ) {
+            if( i >= 1 && i <= MAX_DICES-2 && !occurences) {
+                occurences++;
+                continue;
+            }
+            return 0;
+        }
 
-	return (FULL);
+    return (FULL);
 }
 
 
@@ -56,8 +59,6 @@ int get_score(int des[MAX_DICES])
 {
 	int score = 0;
 
-	/*for (int i = 0; i < MAX_DICES; i++)
-		printf("des[%d] : %d\n",i,des[i]);*/
 	sort_des(des);
 	for (int i = 0; i < MAX_DICES; i++)
 		printf("des[%d] : %d\n",i,des[i]);

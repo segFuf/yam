@@ -1,6 +1,6 @@
 #include "yam.h"
 
-void choice(int des[MAX_DICES])
+void choicee(int des[MAX_DICES])
 {
 	char choice[MAX_DICES] = { };
 	int y = 0;
@@ -17,19 +17,17 @@ void choice(int des[MAX_DICES])
 	}
 }
 
-void sort_des(int des[MAX_DICES]) {
-	int tmp[MAX_DICES];
+void swap(int *a, int *b)
+{
+	int c = *b;
+	*b = *a;
+	*a = c;
+}
 
-	for( int i = 0; i < MAX_DICES; i++ ) {
-		int a = des[i];
-		for( int j = 0; j < MAX_DICES; j++ ) {
-			if( a > des[j] )
-				a = des[j];
-		}
-		tmp[i] = a;
-	}
-
-	for( int i = 0; i < MAX_DICES; i++ ) {
-		des[MAX_DICES] = tmp[MAX_DICES];
-	}
+void sort_des(int des[MAX_DICES]) 
+{
+	for( int i = 0; i < MAX_DICES - 1; i++ )
+		for( int j = 0; j < MAX_DICES - i - 1; j++ )
+			if( des[j] > des[j + 1] )
+				swap(&des[j], &des[j+1]);
 }
