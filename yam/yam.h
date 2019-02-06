@@ -20,7 +20,7 @@
 #define abs( a ) ( a > 0 ? a : -a )
 
 //utils.c
-void choicee(int des[MAX_DICES]);
+void choice(int des[MAX_DICES]);
 void sort_des(int des[MAX_DICES]);
 
 //get_score.c
