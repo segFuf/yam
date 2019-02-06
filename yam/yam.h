@@ -1,5 +1,5 @@
-#ifndef YAM_H_
-#define YAM_H_
+#ifndef YAHTZEE_H_
+#define YAHTZEE_H_
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,9 +19,13 @@
 #define EVER (;;)
 #define abs( a ) ( a > 0 ? a : -a )
 
-void choice(int des[6]);
+//utils.c
+void choice(int des[MAX_DICES]);
+void sort(int des[MAX_DICES])
+
+//get_score.c
 int numplayers( char *str );
 void removePoints( int player, int points );
-int get_score(int des[7]);
+int get_score(int des[MAX_DICES]);
 
-#endif // YAM_H_
+#endif YAHTZEE_H_
