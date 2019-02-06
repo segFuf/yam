@@ -20,12 +20,12 @@
 #define abs( a ) ( a > 0 ? a : -a )
 
 //utils.c
-void choice(int des[MAX_DICES]);
-void sort_des(int des[MAX_DICES])
+void choicee(int des[MAX_DICES]);
+void sort_des(int des[MAX_DICES]);
 
 //get_score.c
 int numplayers( char *str );
 void removePoints( int player, int points );
 int get_score(int des[MAX_DICES]);
 
-#endif YAHTZEE_H_
+#endif /*YAHTZEE_H_*/
