@@ -17,7 +17,7 @@ void choice(int des[MAX_DICES])
 	}
 }
 
-void sort(int des[MAX_DICES]) {
+void sort_des(int des[MAX_DICES]) {
 	int tmp[MAX_DICES];
 
 	for( int i = 0; i < MAX_DICES; i++ ) {

@@ -21,7 +21,7 @@
 
 //utils.c
 void choice(int des[MAX_DICES]);
-void sort(int des[MAX_DICES])
+void sort_des(int des[MAX_DICES])
 
 //get_score.c
 int numplayers( char *str );
