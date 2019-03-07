@@ -1,10 +1,12 @@
 #ifndef YAHTZEE_H_
 #define YAHTZEE_H_
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <time.h>
+
+#include <stdio.h>	//printf()
+#include <stdlib.h>	//rand(), srand()
+#include <unistd.h>	//sleep()
+#include <time.h>	//time()
+
 
 #define MAX_ROUNDS 12
 #define MAX_TRIES 3
@@ -12,12 +14,11 @@
 #define FACES 8
 #define NUM_PLAYERS 2
 
-//shapes
+//score patterns
 #define SAME 50
 #define SUITE 40
 #define FULL 35
 
-#define EVER (;;)
 #define abs( a ) ( a > 0 ? a : -a )
 
 /*           */

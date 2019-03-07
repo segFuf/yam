@@ -4,7 +4,7 @@ HEAD=yam.h
 OBJ=$(SRC:.c=.o)
 CFLAGS= -Wall -Wextra -g
 
-yam	:	$(HEAD) $(OBJ)
+yahtzee	:	$(HEAD) $(OBJ)
 		$(CC) -o $@ $(OBJ)
 
 
@@ -14,4 +14,4 @@ yam	:	$(HEAD) $(OBJ)
 
 
 clean	:
-		rm -rf *.o *.out yam
+		rm -rf *.o *.out yam yahtzee

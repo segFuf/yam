@@ -14,7 +14,7 @@ int choices( int num_dices, int des_in[MAX_DICES], int des_out[MAX_DICES] ) {
 	int j;
 	int old_num_dices = num_dices;
 
-	for EVER {
+	for (;;) {
 		int tmp[MAX_DICES] = { };
 		choice( tmp );
 
