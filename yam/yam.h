@@ -53,7 +53,7 @@ int get_score(int des[MAX_DICES]);
 /*               */
 
 ///Permet de choisir les des à garder d'une combinaison. Renvoie le nombre de dés restants
-int choices(int num_dices, int des_in[MAX_DICES], int des_out[MAX_DICES]);
+int chooseDices(int num_dices, int des_in[MAX_DICES], int des_out[MAX_DICES]);
 ///Déroulement d'un lancer de dés. Renvoie le nombre de dés restants
 int throwDices(int num_dices, int des[MAX_DICES]);
 ///Déroulement d'un tour de joueur, en MAX_TRIES lancers. Ajoute le score obtenu au score du joueur.

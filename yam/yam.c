@@ -9,8 +9,15 @@
 // - faire un makefile
 
 
+/**
 
-int choices( int num_dices, int des_in[MAX_DICES], int des_out[MAX_DICES] ) {
+Cette fonction encapsule tout le choix des dés parmi des dés d'entrée, pour les ajouter au tableau de dés en sortie
+Si le/les choix n'est/ne sont pas valable(s), la boucle est relancée.
+La fonction retourne le nombre de dés restants
+
+**/
+
+int chooseDices( int num_dices, int des_in[MAX_DICES], int des_out[MAX_DICES] ) {
 	int j;
 	int old_num_dices = num_dices;
 
@@ -42,7 +49,13 @@ int choices( int num_dices, int des_in[MAX_DICES], int des_out[MAX_DICES] ) {
 }
 
 
+/**
 
+Fonction simulant le lancer de dés pour un tour. La fonction se charge de générer le nombre de dés restants.
+La fonction prends en charge l'affichage des dés en 2 colonnes.
+Elle retourne le résultat de chooseDices, soit le nombre de dés restant à la fin du choix des dés.
+
+**/
 
 int throwDices( int num_dices, int des[MAX_DICES] ) {
 	int des_rand[MAX_DICES];		//tableau de des generes aleatoirement
@@ -57,11 +70,17 @@ int throwDices( int num_dices, int des[MAX_DICES] ) {
 		printf("\n");
 	}
 
-	return choices( num_dices, des_rand, des );
+	return chooseDices( num_dices, des_rand, des );
 }
 
 
+/**
 
+Cette fonction lance le déroulement du tour d'un joueur, avec MAX_TRIES lancers de dé.
+Elle lance la fonction throwDices et attribue sa valeur de retour à num_dices.
+La fonction ajoute le score obtenu à la fin du tour au score du joueur une fois que num_dices est égale à 0 ou que le nombre de tours est dépassé
+
+**/
 
 void play( int *player ) {
 	int num_dices = MAX_DICES;	//nombre maximum de des, diminuant petit a petit
