@@ -15,7 +15,7 @@ void choice(int des[MAX_DICES])
 	char choice[MAX_DICES] = { };
 	int y = 0;
 
-	printf("\n\x1b[95mQuels des choisissez-vous ?\x1b[97m\n");
+	printf("\x1b[95mQuels des choisissez-vous ?\x1b[97m\n");
 	scanf("%s", &choice);
 	for (int i = 0; i < MAX_DICES; i++) {
 		if (choice[i] >= '1' && choice[i] <= ('0' + MAX_DICES) ) {
@@ -51,5 +51,5 @@ void sort_des(int des[MAX_DICES])
 	for( int i = 0; i < MAX_DICES - 1; i++ )
 		for( int j = 0; j < MAX_DICES - i - 1; j++ )
 			if( des[j] > des[j + 1] )
-				swap(&des[j], &des[j+1]);
+				swap( &des[j], &des[j+1] );
 }

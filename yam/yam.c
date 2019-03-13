@@ -3,11 +3,21 @@
 //A FAIRE :
 // - clear l'ecran a des moments precis
 // - plus belle interface graphique
-// - rajouter des couleurs
 // - ptits truc jolis qui servent a rien (genre un dessin de de en ascii ?)
-// - mettre les define dans un .h et les fonctions abs et numplayers dans un autre .c
-// - faire un makefile
 
+
+/**
+
+Cette fonction affiche un tableau de des contenant 'max' des.
+Elle est surtout utile pour les actions de debogage.
+
+**/
+
+void displayDices( int des[MAX_DICES], int max ) {
+	for( int i = 0; i < max; i++ ) //truc complexe pour juste afficher sur deux lignes les des
+		printf("%s\x1b[32mdes \x1b[92m%i \x1b[32m: \x1b[92m%i\x1b[32m%s", ( i % 2 == 0 ? " " : "\t\t" ), i + 1, des[i], ( i % 2 == 0 ? "" : "\n" ));
+	printf("\n");
+}
 
 /**
 
@@ -17,11 +27,18 @@ La fonction retourne le nombre de dés restants
 
 **/
 
-int chooseDices( int num_dices, int des_in[MAX_DICES], int des_out[MAX_DICES] ) {
-	int j;
-	int old_num_dices = num_dices;
+int chooseDices( int num_dices, int des_in[MAX_DICES], int des_out[MAX_DICES], int trial ) {
+	int j, old_num_dices = num_dices;
 
 	for (;;) {
+		displayDices( des_in, old_num_dices );
+
+		if( trial == MAX_TRIES-1 ) {
+			for( int i = 0, j = MAX_DICES - num_dices; j < MAX_DICES; i++, j++ )
+				des_out[j] = des_in[i];
+			return 0;
+		}
+
 		int tmp[MAX_DICES] = { };
 		choice( tmp );
 
@@ -39,12 +56,12 @@ int chooseDices( int num_dices, int des_in[MAX_DICES], int des_out[MAX_DICES] ) 
 			continue;
 		}
 		
-
 		for( j = MAX_DICES - old_num_dices; j < MAX_DICES - num_dices; j++ )
 			des_out[j] = des_in[tmp[j]-1];
 
 		break;
 	}
+
 	return num_dices;
 }
 
@@ -57,20 +74,16 @@ Elle retourne le résultat de chooseDices, soit le nombre de dés restant à la 
 
 **/
 
-int throwDices( int num_dices, int des[MAX_DICES] ) {
+int throwDices( int num_dices, int des[MAX_DICES], int trial ) {
 	int des_rand[MAX_DICES];		//tableau de des generes aleatoirement
 
-	for( int j = 0; j < num_dices; j += 2 ) { //truc complexe pour juste afficher sur deux lignes les des
-		des_rand[j] = rand() % FACES + 1;
-		printf("des \x1b[92m%i \x1b[32m: \x1b[92m%i\x1b[32m", j + 1, des_rand[j]);
-		if( j+1 < num_dices ) {
-			des_rand[j+1] = rand() % FACES + 1;
-			printf("\t\tdes \x1b[92m%i \x1b[32m: \x1b[92m%i\x1b[32m", j + 2, des_rand[j+1]);
-		}
-		printf("\n");
+	for( int i = 0; i < num_dices; i += 2 ) { //truc complexe pour juste afficher sur deux lignes les des
+		des_rand[i] = rand() % FACES + 1;
+		if( i + 1 < num_dices )
+			des_rand[i+1] = rand() % FACES + 1;
 	}
 
-	return chooseDices( num_dices, des_rand, des );
+	return chooseDices( num_dices, des_rand, des, trial );
 }
 
 
@@ -87,8 +100,8 @@ void play( int *player ) {
 	int des[MAX_DICES];			//tableau de des final, pour la creation d'une forme
 
 	for( int i = 0; i < MAX_TRIES; i++ ) {
-		printf("\x1b[32mEssai \x1b[92m%i \x1b[32msur \x1b[92m%i\x1b[32m\n\n", i + 1, MAX_TRIES);
-		num_dices = throwDices( num_dices, des );
+		printf("\x1b[32mEssai \x1b[92m%i \x1b[32msur \x1b[92m%i\n\n", i + 1, MAX_TRIES);
+		num_dices = throwDices( num_dices, des, i );
 
 		if( num_dices == 0 )
 			break;

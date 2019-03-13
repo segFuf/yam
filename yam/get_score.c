@@ -1,47 +1,6 @@
 #include "yam.h"
 
 
-/**
-
-Cette fonction vérifie si la combinaison d'un joueur est un YAHTZEE
-
-Elle vérifie simplement si le dé précédent est égal au dé présent, en partant du 2e dé vers le dernier
-La fonction retourne 0 si ça n'est pas le cas.
-Sinon, si tous les tests se passent bien, elle renvoie la valeur de YAHTZEE.
-
-**/
-
-/*int same_number(int des[MAX_DICES])
-{
-	for ( int i = 1; i < MAX_DICES; i++ )
-		if ( des[i] != des[i-1] )
-			return (0);
-
-	return (SAME);
-}*/
-
-/**
-
-Cette fonction vérifie si la combinaison d'un joueur est une suite
-
-Elle vérifie simplement si le dé précédent incrémenté de 1 est égal au dé présent, en partant de 2e dé vers le dernier
-La fonction retourne 0 si ça n'est pas le cas.
-Sinon, si tous les tests se passent bien, elle renvoie la valeur de SUITE
-
-Le tableau étant trié, on a besoin de vérifier la suite que dans un sens.
-
-**/
-
-/*int suite(int des[MAX_DICES])
-{
-
-	for( int i = 1; i < MAX_DICES; i++ )
-		if( des[i] != des[i-1] + 1 )
-			return (0);
-
-	return (SUITE);
-}*/
-
 
 /**
 
@@ -55,9 +14,8 @@ Le tableau étant trié, on a besoin de vérifier la suite que dans un sens.
 
 **/
 
-int suite(int des[MAX_DICES], int mod, int score)
+int suite( int des[MAX_DICES], int mod, int score )
 {
-
 	for( int i = 1; i < MAX_DICES; i++ )
 		if( des[i] != des[i-1] + mod )
 			return (0);
@@ -67,51 +25,35 @@ int suite(int des[MAX_DICES], int mod, int score)
 
 /**
 
-Cette fonction vérifie si la combinaison d'un joueur est un full
+Cette fonction vérifie si la combinaison d'un joueur contient des nombres identiques à la suite.
 
-La fonction vérifie si le dé précédent est égal au dé présent
-Sinon, si le dé présent actuel est compris entre le 3e et l'avant-dernier dé alors qu'on a rencontré qu'un type de dé jusque là.
-Dans ce cas, occurences est incrémenté pour être vrai au prochain test (il y a au moins 2 valeurs)
-
-**/
-
-int full(int des[MAX_DICES])
-{
-    int occurences = 0;
-    for( int i = 1; i < MAX_DICES; i++ )
-        if( des[i] != des[i-1] ) {
-            if( i >= 2 && i <= MAX_DICES-2 && !occurences ) {
-                occurences++;
-                continue;
-            }
-            return (0);
-        }
-
-    return (FULL);
-}
-
-/**
-
-C
+La fonction vérifie si le dé précédent est égal au dé présent. Dans ce cas, elle ajoute au score le nombre de fois que le nombre est trouvé
+Sinon, elle augmente le nombre d'occurences de nombres différents dans le tableau.
+Si le score est positif, qu'il n'y a que deux occurences de nombres dans la liste et que les deux occurences sont en plusieurs exemplaires, on retourne la valeur d'un FULL.
+Sinon, on retourne le score obtenu.
 
 **/
 
-int double_triple(int des[MAX_DICES])
+int double_triple( int des[MAX_DICES] )
 {
-	int score = 0;
-	int num = 0;
+	int val = 0, score = 0, occ = 0, occ_mult = 0;
 
 	for( int i = 1; i < MAX_DICES; i++ ) {
 		if( des[i] == des[i-1] ) {
-			num++;
-		} else if ( des[i] && num != 0) {
-			score += des[i-1] * (num + 1);
-			num = 0;
-		}
+			if( des[i] != val ) {
+				val = des[i];
+				score += val;
+				occ_mult++;
+			} score += val;
+		} else
+			occ++;
 	}
 
-	return (score);
+	if( score && occ == 2 && occ_mult == 2 )
+		return (FULL);
+	return score;
 }
+
 
 
 /**
@@ -125,19 +67,14 @@ Cette fonction trie la combinaison de dés du joueurs, puis renvoie le score obt
 
 **/
 
-int get_score(int des[MAX_DICES])
+int get_score( int des[MAX_DICES] )
 {
 	int score = 0;
+	sort_des( des );
 
-	sort_des(des);
-	if ((score = suite(des, 0, SAME)))
-		return (score);
-	if ((score = suite(des, 1, SUITE)))
-		return (score);
-	if ((score = full(des)))
-		return (score);
-	if ((score = double_triple(des)))
-		return (score);
+	for( int i = 0; i < 2; i++ )
+		if ((score = suite(des, i, ( i == 0 ? SAME : SUITE ))))
+			return (score);
 
-	return 0;
+	return double_triple( des );
 }
