@@ -10,7 +10,7 @@ CFLAGS= -Wall -Wextra -g
 yahtzee	:	$(HEAD) $(OBJ)
 		$(CC) -o $@ $(OBJ)
 
-test    :	$(HEAD) $(OBJ2)
+test_y    :	$(HEAD) $(OBJ2)
 		$(CC) -o $@ $(OBJ2)
 
 
@@ -21,5 +21,5 @@ test    :	$(HEAD) $(OBJ2)
 
 
 clean	:
-		rm -rf *.o *.out yam yahtzee
+		rm -rf *.o *.out yam yahtzee test
 
