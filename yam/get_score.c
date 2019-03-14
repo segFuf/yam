@@ -51,7 +51,7 @@ int double_triple( int des[MAX_DICES] )
 
 	if( score && occ == 2 && occ_mult == 2 )
 		return (FULL);
-	return score;
+	return (score);
 }
 
 

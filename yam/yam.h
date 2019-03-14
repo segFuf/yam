@@ -25,6 +25,8 @@
 /*  utils.c  */
 /*           */
 
+///Affiche les dés du tableau 'des' de 0 à 'max'
+void displayDices( int des[MAX_DICES], int max );
 ///L'utilisateur choisit un ou plusieurs dés parmi une liste de dés
 void choice(int des[MAX_DICES]);
 ///Intervertit deux valeurs

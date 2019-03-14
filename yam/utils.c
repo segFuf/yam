@@ -3,6 +3,19 @@
 
 /**
 
+Cette fonction affiche un tableau de des contenant 'max' des.
+Elle est surtout utile pour les actions de debogage.
+
+**/
+
+void displayDices( int des[MAX_DICES], int max ) {
+	for( int i = 0; i < max; i++ ) //truc complexe pour juste afficher sur deux lignes les des
+		printf("%s\x1b[32mdes \x1b[92m%i \x1b[32m: \x1b[92m%i\x1b[32m%s", ( i % 2 == 0 ? " " : "\t\t" ), i + 1, des[i], ( i % 2 == 0 ? "" : "\n" ));
+	printf("\n");
+}
+
+/**
+
 Cette fonction permet au joueur de choisir les dés qu'il veut garder à la suite d'un lancer.
 Le joueur choisit le numéro d'un dé, pas sa valeur
 Seules 7 valeurs peuvent être entrées, et ces valeurs doivent être entre 1 et 7 compris.
