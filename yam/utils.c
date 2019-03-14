@@ -8,7 +8,8 @@ Elle est surtout utile pour les actions de debogage.
 
 **/
 
-void displayDices( int des[MAX_DICES], int max ) {
+void displayDices( int des[MAX_DICES], int max )
+{
 	for( int i = 0; i < max; i++ ) //truc complexe pour juste afficher sur deux lignes les des
 		printf("%s\x1b[32mdes \x1b[92m%i \x1b[32m: \x1b[92m%i\x1b[32m%s", ( i % 2 == 0 ? " " : "\t\t" ), i + 1, des[i], ( i % 2 == 0 ? "" : "\n" ));
 	printf("\n");
@@ -35,8 +36,7 @@ void choice(int des[MAX_DICES])
 			des[y] = choice[i] - '0';
 			y++;
 		}
-	}
-	printf("\n");
+	} printf("\n");
 }
 
 /**

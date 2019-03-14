@@ -36,7 +36,7 @@ Sinon, on retourne le score obtenu.
 
 int double_triple( int des[MAX_DICES] )
 {
-	int val = 0, score = 0, occ = 0, occ_mult = 0;
+	int val = 0, score = 0, occ = 1, occ_mult = 0;
 
 	for( int i = 1; i < MAX_DICES; i++ ) {
 		if( des[i] == des[i-1] ) {
