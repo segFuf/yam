@@ -13,13 +13,21 @@
 #define MAX_DICES 7
 #define FACES 8
 #define NUM_PLAYERS 2
+#define SHAPES MAX_DICES+1
 
 //score patterns
 #define SAME 50
-#define SUITE 40
+#define SEQUEL 40
 #define FULL 35
 
 #define abs( a ) ( a > 0 ? a : -a )
+
+enum {
+	YAHTZEE		= 0,
+	SUITE		= 1,
+	DEUX_FORMES = 2,
+	PAIRE 		= 3
+};
 
 /*           */
 /*  utils.c  */
@@ -33,7 +41,6 @@ void choice(int des[MAX_DICES]);
 void swap(int *a, int *b);
 /// Trie les dés
 void sort_des(int des[MAX_DICES]);
-
 
 
 /*               */

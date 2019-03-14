@@ -19,14 +19,14 @@ int main() {
 	int des8[MAX_DICES] = {1, 3, 3, 4, 5, 6, 7}; // 6
 	int des9[MAX_DICES] = {1, 2, 4, 5, 6, 7, 8}; // 0
 
-	test(get_score(des1), 50);
-	test(get_score(des2), 40);
-	test(get_score(des3), 35);
-	test(get_score(des4), 35);
-	test(get_score(des5), 35);
-	test(get_score(des6), 23);
-	test(get_score(des7), 24);
-	test(get_score(des8), 6);
+	test(get_score(des1), SAME);
+	test(get_score(des2), SEQUEL);
+	test(get_score(des3), FULL);
+	test(get_score(des4), FULL);
+	test(get_score(des5), FULL);
+	test(get_score(des6), 2*1 + 2*3 + 3*5);
+	test(get_score(des7), 3*2 + 2*4 + 2*5);
+	test(get_score(des8), 2*3);
 	test(get_score(des9), 0);
 
 	return 0;

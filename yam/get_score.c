@@ -73,7 +73,7 @@ int get_score( int des[MAX_DICES] )
 	sort_des( des );
 
 	for( int i = 0; i < 2; i++ )
-		if ((score = suite(des, i, ( i == 0 ? SAME : SUITE ))))
+		if ((score = suite(des, i, ( i == 0 ? SAME : SEQUEL ))))
 			return (score);
 
 	return double_triple( des );
