@@ -16,17 +16,16 @@
 #define SHAPES MAX_DICES+1
 
 //score patterns
-#define SAME 50
-#define SEQUEL 40
-#define FULL 35
+#define SCORE_YAHTZEE 50
+#define SCORE_SUITE 40
+#define SCORE_FULL 35
 
 #define abs( a ) ( a > 0 ? a : -a )
 
 enum {
 	YAHTZEE		= 0,
 	SUITE		= 1,
-	DEUX_FORMES = 2,
-	PAIRE 		= 3
+	FULL		= 2
 };
 
 /*           */
@@ -41,20 +40,21 @@ void choice(int des[MAX_DICES]);
 void swap(int *a, int *b);
 /// Trie les dés
 void sort_des(int des[MAX_DICES]);
-
+/// Mets un tableau à 1
+void initTab( int *tab, int size );
 
 /*               */
 /*  get_score.c  */
 /*               */
 
-///Renvoie le score score d'une suite de modifier mod
-int suite(int des[MAX_DICES], int mod, int score);
+///Renvoie si une config de des correspond à une suite
+int suite(int des[MAX_DICES], int mod);
 ///Renvoie le score d'un full si la combinaison du joueur est un full
 int full(int des[MAX_DICES]);
 ///Renvoie le score des doubles et triples que le joueur a dans sa combinaison
-int double_triple(int des[MAX_DICES]);
+int multiples(int des[MAX_DICES], int shapes[SHAPES]);
 ///Renvoie le score correspondant à la combinaison de dés du joueur
-int get_score(int des[MAX_DICES]);
+int get_score(int des[MAX_DICES], int shapes[SHAPES]);
 
 
 /*               */
@@ -66,6 +66,6 @@ int chooseDices(int num_dices, int des_in[MAX_DICES], int des_out[MAX_DICES], in
 ///Déroulement d'un lancer de dés. Renvoie le nombre de dés restants
 int throwDices(int num_dices, int des[MAX_DICES], int trial);
 ///Déroulement d'un tour de joueur, en MAX_TRIES lancers. Ajoute le score obtenu au score du joueur.
-void play(int *player);
+void play(int *player, int shapes[SHAPES]);
 
 #endif /*YAHTZEE_H_*/

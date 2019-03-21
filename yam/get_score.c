@@ -8,19 +8,19 @@ Cette fonction vérifie si la combinaison d'un joueur est une suite
 
 Elle vérifie simplement si le dé précédent incrémenté de mod est égal au dé présent, en partant du 2e dé vers le dernier
 La fonction retourne 0 si ça n'est pas le cas.
-Sinon, si tous les tests se passent bien, elle renvoie la valeur de score
+Sinon, si tous les tests se passent bien, elle renvoie 1
 
 Le tableau étant trié, on a besoin de vérifier la suite que dans un sens.
 
 **/
 
-int suite( int des[MAX_DICES], int mod, int score )
+int suite( int des[MAX_DICES], int mod )
 {
 	for( int i = 1; i < MAX_DICES; i++ )
-		if( des[i] != des[i-1] + mod )
-			return (0);
+		if( des[i] != des[i-1] - mod )
+			return 0;
 
-	return (score);
+	return 1;
 }
 
 /**
@@ -34,23 +34,52 @@ Sinon, on retourne le score obtenu.
 
 **/
 
-int double_triple( int des[MAX_DICES] )
+int multiples( int des[MAX_DICES], int shapes[SHAPES] )
 {
-	int val = 0, score = 0, occ = 1, occ_mult = 0;
+	int val = 0, score = 0;
+	int occ_mult = 0, occ_val = 0, occ = 1;
+	int multiples[SHAPES-3] = { };
 
 	for( int i = 1; i < MAX_DICES; i++ ) {
 		if( des[i] == des[i-1] ) {
 			if( des[i] != val ) {
+				if( shapes[occ_val+1] && occ_val > 1 ) {
+					shapes[occ_val+1] = 0;
+					multiples[occ_val-2] = 1;
+					score += occ_val * val;
+				}
 				val = des[i];
-				score += val;
+				occ_val = 1;
 				occ_mult++;
-			} score += val;
-		} else
+			}
+			occ_val++;
+		} else {
 			occ++;
+		}
 	}
 
-	if( score && occ == 2 && occ_mult == 2 )
-		return (FULL);
+	if( shapes[occ_val+1] && occ_val > 1 ) {
+		shapes[occ_val+1] = 0;
+		multiples[occ_val-2] = 1;
+		score += occ_val * val;
+	}
+	
+
+	if( score && occ == 2 && occ_mult == 2 ) {
+		for( int i = 0; i < SHAPES-3; i++ ) {
+			if(multiples[i]) {
+				shapes[i+3] = 1;
+			}
+		}
+
+		if( shapes[FULL] ) {
+			shapes[FULL] = 0;
+			return (SCORE_FULL);
+		}
+
+		score = 0;
+	}
+
 	return (score);
 }
 
@@ -67,14 +96,18 @@ Cette fonction trie la combinaison de dés du joueurs, puis renvoie le score obt
 
 **/
 
-int get_score( int des[MAX_DICES] )
+int get_score( int des[MAX_DICES], int shapes[SHAPES] )
 {
-	int score = 0;
 	sort_des( des );
 
-	for( int i = 0; i < 2; i++ )
-		if ((score = suite(des, i, ( i == 0 ? SAME : SEQUEL ))))
-			return (score);
+	for( int i = 0; i < 2; i++ ) {
+		if( suite(des, i) ) {
+			if( shapes[i] ) {
+				shapes[i] = 0;
+				return ( i == 0 ? SCORE_YAHTZEE : SCORE_SUITE );
+			} return (0);
+		}
+	}
 
-	return double_triple( des );
+	return multiples( des, shapes );
 }

@@ -1,7 +1,6 @@
 #include "yam.h"
 
 //A FAIRE :
-// - clear l'ecran a des moments precis
 // - plus belle interface graphique
 // - ptits truc jolis qui servent a rien (genre un dessin de de en ascii ?)
 
@@ -30,6 +29,9 @@ int chooseDices( int num_dices, int des_in[MAX_DICES], int des_out[MAX_DICES], i
 		int tmp[MAX_DICES] = { };
 		choice( tmp );
 
+		if( tmp[0] == -1 )
+			return num_dices;
+
 		for( j = 0; tmp[j] != 0 && j < num_dices; j++ ) {
 			if( tmp[j] > num_dices ) {
 				j = 0;
@@ -43,9 +45,10 @@ int chooseDices( int num_dices, int des_in[MAX_DICES], int des_out[MAX_DICES], i
 			printf(" \x1b[91m--- Un des des selectionnes n'existe pas! ---\x1b[92m\n");
 			continue;
 		}
-		
-		for( j = MAX_DICES - old_num_dices; j < MAX_DICES - num_dices; j++ )
-			des_out[j] = des_in[tmp[j]-1];
+
+		int i = 0;
+		for( j = MAX_DICES - old_num_dices; j < MAX_DICES - num_dices; j++, i++ )
+			des_out[j] = des_in[tmp[i]-1];
 
 		break;
 	}
@@ -83,7 +86,7 @@ La fonction ajoute le score obtenu à la fin du tour au score du joueur une fois
 
 **/
 
-void play( int *player ) {
+void play( int *player, int shapes[SHAPES] ) {
 	int num_dices = MAX_DICES;	//nombre maximum de des, diminuant petit a petit
 	int des[MAX_DICES];			//tableau de des final, pour la creation d'une forme
 
@@ -95,7 +98,9 @@ void play( int *player ) {
 			break;
 	}
 
-	*player += get_score( des );
+	// displayDices( des, MAX_DICES );
+
+	*player += get_score( des, shapes );
 }
 
 
@@ -105,21 +110,29 @@ int main() {
 	time_t t;
 	srand((unsigned) time(&t)); //initialisation du random
 
-	int PLAYERS[NUM_PLAYERS] = { };
 
-	printf("\n////////////////////////////////////////\n\
-// Démarrage d'une partie à \x1b[34m%i \x1b[97mjoueurs //\n\
-////////////////////////////////////////\n\n\n", NUM_PLAYERS);
+	int PLAYERS[NUM_PLAYERS] = { };
+	int DONE_SHAPES[NUM_PLAYERS][SHAPES];
+	for( int i = 0; i < NUM_PLAYERS; i++ )
+		initTab(DONE_SHAPES[i], SHAPES);
+
+	system("clear");
+	printf("\n\x1b[36m////////////////////////////////////////\n\
+// Démarrage d'une partie à \x1b[96m%i \x1b[36mjoueurs //\n\
+////////////////////////////////////////\n\n\n\x1b[97m", NUM_PLAYERS);
+
 
 	for( int i = 0; i < MAX_ROUNDS; i++ ) {
 		printf("\x1b[93m  -------------------\n --- Tour \x1b[92m%i \x1b[93msur \x1b[32m%i \x1b[93m---\n  -------------------\n\x1b[97m\n\n", i + 1, MAX_ROUNDS);
 		for( int player = 0; player < NUM_PLAYERS; player++ ) {
 			printf("\x1b[91mLe joueur \x1b[36m%i \x1b[91mjoue\x1b[97m\n\n", player + 1);
-			play( &PLAYERS[player] );
+			play( &PLAYERS[player], DONE_SHAPES[player] );
 			printf("\x1b[93mVotre score a la fin de ce tour est \x1b[91m%i\x1b[97m\n\n", PLAYERS[player]);
 			sleep(1);
+			system("clear");
 		}
 	}
+
 
 	printf("\nFin de la partie !\n");
 	int winner = 0;
